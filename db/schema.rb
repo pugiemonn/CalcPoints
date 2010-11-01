@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101028032436) do
+ActiveRecord::Schema.define(:version => 20101101074749) do
+
+  create_table "points", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "point"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "user_name"

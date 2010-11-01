@@ -1,0 +1,24 @@
+<h1>Editing point</h1>
+
+<% form_for(@point) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :point %><br />
+    <%= f.text_field :point %>
+  </p>
+  <p>
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @point %> |
+<%= link_to 'Back', points_path %>

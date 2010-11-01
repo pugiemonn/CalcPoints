@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @point.user_id %>
+</p>
+
+<p>
+  <b>Point:</b>
+  <%=h @point.point %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @point.date %>
+</p>
+
+
+<%= link_to 'Edit', edit_point_path(@point) %> |
+<%= link_to 'Back', points_path %>
