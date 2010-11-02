@@ -1,0 +1,28 @@
+<h1>Listing logs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Point sum</th>
+    <th>Spent sum</th>
+    <th>Message</th>
+    <th>Date</th>
+  </tr>
+
+<% @logs.each do |log| %>
+  <tr>
+    <td><%=h log.user_id %></td>
+    <td><%=h log.point_sum %></td>
+    <td><%=h log.spent_sum %></td>
+    <td><%=h log.message %></td>
+    <td><%=h log.date %></td>
+    <td><%= link_to 'Show', log %></td>
+    <td><%= link_to 'Edit', edit_log_path(log) %></td>
+    <td><%= link_to 'Destroy', log, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New log', new_log_path %>

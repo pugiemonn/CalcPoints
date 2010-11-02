@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  point_sum: 1
+  spent_sum: 1
+  message: MyString
+  date: 2010-11-02
+
+two:
+  user_id: 1
+  point_sum: 1
+  spent_sum: 1
+  message: MyString
+  date: 2010-11-02

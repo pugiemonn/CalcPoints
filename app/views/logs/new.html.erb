@@ -1,0 +1,31 @@
+<h1>New log</h1>
+
+<% form_for(@log) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :point_sum %><br />
+    <%= f.text_field :point_sum %>
+  </p>
+  <p>
+    <%= f.label :spent_sum %><br />
+    <%= f.text_field :spent_sum %>
+  </p>
+  <p>
+    <%= f.label :message %><br />
+    <%= f.text_field :message %>
+  </p>
+  <p>
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', logs_path %>

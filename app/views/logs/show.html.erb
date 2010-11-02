@@ -1,0 +1,28 @@
+<p>
+  <b>User:</b>
+  <%=h @log.user_id %>
+</p>
+
+<p>
+  <b>Point sum:</b>
+  <%=h @log.point_sum %>
+</p>
+
+<p>
+  <b>Spent sum:</b>
+  <%=h @log.spent_sum %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%=h @log.message %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @log.date %>
+</p>
+
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>
