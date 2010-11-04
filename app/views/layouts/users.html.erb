@@ -8,10 +8,17 @@
   <%= stylesheet_link_tag 'points' %>
 </head>
 <body>
+<div id="wrapper">
+  <div id="main">
+    <div id="header">
+       <p id="navi">
+         <%= render :partial => 'navi_link'%>
+       </p>
+    </div>
 
-<p style="color: green"><%= notice %></p>
-
-<%= yield %>
-
+    <p style="color: green"><%= notice %></p>
+    <%= yield %>
+  </div>
+</div>
 </body>
 </html>

@@ -1,8 +1,59 @@
 class PointsController < ApplicationController
   # GET /points
   # GET /points.xml
+
+  def update_point
+    #render :text => "hogehoge"
+    @user_id = params[:user_id]
+    @point = params[:point]
+    @date = params[:date]
+
+#    @flag = Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
+
+    if Point.exists?(["user_id = ? and date = ? ",  @user_id , @date ])
+#      update=Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
+#      update.point=@point     
+#      update.update_attribute(:point, @point)
+#      update.save
+     Point.update_all("point=" + @point + "", ["user_id = ? and date = ? ",  @user_id , @date ] )
+    else
+      point = Point.new
+      point.user_id = @user_id
+      point.point = @point
+      point.date = @date
+      point.save
+    end
+
+    @point = Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
+
+    #render :text  => User.find(:all, :select => "id" ,:conditions => "id == 3")
+    render :inline  => "<input type=\"text\" id=\"input_<%= @date %>\" name=\"input_<%= @date %>\"  value=\"<%= @point[0].point %>\" onChange=\"<%= remote_function(:update => \"td_1_#{@date}\",
+:with => \"'user_id=#{@user_id}&point=' + $('input_#{@date}').value + '&date=#{@date}' \",
+:url => { 
+:action => 'update_point'
+}) -%>\" />"
+    #render :text => CGI.escapeHTML(params[:user_id])
+  end
+
+
+
   def index
-    @points = Point.all
+    @users = User.all 
+    @points = Point.find(:all, :group => :date, :order => 'date desc', :include => :user)
+    @points1 = Point.find(:all, :conditions => "user_id == 1", :order => 'date desc', :include => :user)
+    @points2 = Point.find(:all, :conditions => "user_id == 2", :order => 'date desc', :include => :user)
+    @points3 = Point.find(:all, :conditions => "user_id == 3", :order => 'date desc', :include => :user)
+    @points4 = Point.find(:all, :conditions => "user_id == 4", :order => 'date desc', :include => :user)
+    @points5 = Point.find(:all, :conditions => "user_id == 5", :order => 'date desc', :include => :user)
+    @points6 = Point.find(:all, :conditions => "user_id == 6", :order => 'date desc', :include => :user)
+
+    date = Date.today
+    #20日分の日付リスト
+    date_box = Array.new
+    for i in 0..20
+      date_box << date - i
+    end
+    @date_box = date_box
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,17 +107,22 @@ class PointsController < ApplicationController
   # PUT /points/1
   # PUT /points/1.xml
   def update
-    @point = Point.find(params[:id])
+    @point = params[:point]
+    @date = date[:date]
+    
+    render :text => 'hoge'  
 
-    respond_to do |format|
-      if @point.update_attributes(params[:point])
-        format.html { redirect_to(@point, :notice => 'Point was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
-      end
-    end
+#    @point = Point.find(params[:id])
+
+#    respond_to do |format|
+#      if @point.update_attributes(params[:point])
+#        format.html { redirect_to(@point, :notice => 'Point was successfully updated.') }
+#        format.xml  { head :ok }
+#      else
+#        format.html { render :action => "edit" }
+#        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
+#      end
+#    end
   end
 
   # DELETE /points/1

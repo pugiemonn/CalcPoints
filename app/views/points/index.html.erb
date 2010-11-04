@@ -1,4 +1,68 @@
 <h1>Listing points</h1>
+<%= javascript_include_tag :defaults %>
+
+<table>
+  <tr>
+    <th>日付</th>
+    <% @users.each do |d|%>	
+    <th><%= d.user_name %></th>
+    <% end %>
+  </tr>
+<!--  <tr>
+    <td>消費合計</td>
+<% @users.each do |u| %>
+    <td id="td_sum_<%= u.id%>"><input type="text" /></td>
+<% end %>
+  </tr>
+  <tr>
+    <td>合計</td>
+<% @users.each do |u| %>
+    <td><input type="text" /></td>
+<% end %>
+  </tr>-->
+<% @date_box.each do |d| %>
+  <tr>
+    <td><%=h d %></td>
+    <td id="td_<%= @users[0].id%>_<%= d %>">
+      <input type="text" id="input_<%= @users[0].id%>_<%= d %>"  name="input_<%= @users[0].id%>_<%= d %>" value="<% @points1.each do |point1| -%>
+<% if d == point1.date -%>
+<%=h point1.point -%>
+<% end -%>
+<% end -%>" onChange="<%= remote_function(:update => "td_#{@users[0].id}_#{d}",
+:with => "'user_id=1&point=' + $('input_1_#{d}').value + '&date=#{d}'",
+:url => { 
+:action => 'update_point'
+}) -%>" />
+    </td>
+    <td>
+      <input type="text" id="p2_<%= d %>" name="p2_<%= d %>"  value="<% @points2.each do |point2| -%>
+<% if d == point2.date -%>
+<%=h point2.point %>
+<% end  -%><% end -%>" />
+    </td>
+    <td>
+      <input type="text" value="<% @points3.each do |point3| -%>
+<% end %>" />
+    </td>
+
+    <td>
+      <input name="" type="text" />
+    </td>
+    <td>
+      <input name=""  type="text" />
+    </td>
+    <td>
+      <input name=""  type="text" />
+    </td>
+
+  </tr>
+<% end %>
+</table>
+
+
+
+
+
 
 <table>
   <tr>
