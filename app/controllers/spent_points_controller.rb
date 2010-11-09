@@ -7,12 +7,7 @@ class SpentPointsController < ApplicationController
 #    @spent_point = SpentPoint.find(:select)
 
     #20日分の日付リストをつくる
-    date = Date.today
-    date_box = Array.new
-    for i in 0..20
-      date_box << date - i
-    end
-    @date_box = date_box
+    @date_box = ((20.days.ago.to_date)..(Date.today)).to_a.reverse
 
 
  respond_to do |format|

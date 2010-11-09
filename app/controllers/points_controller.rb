@@ -85,13 +85,14 @@ class PointsController < ApplicationController
    
      @point_sum = Point.find_by_sql("select sum(point) as point  from points where user_id =1")
 
-    date = Date.today
-    #20日分の日付リスト
-    date_box = Array.new
-    for i in 0..20
-      date_box << date - i
-    end
-    @date_box = date_box
+#    date = Date.today
+#    #20日分の日付リスト
+#    date_box = Array.new
+#    for i in 0..20
+#      date_box << date - i
+#    end
+#    @date_box = date_box
+    @date_box = ((20.days.ago.to_date)..(Date.today)).to_a.reverse
 
     respond_to do |format|
       format.html # index.html.erb
