@@ -3,8 +3,19 @@ class SpentPointsController < ApplicationController
   # GET /spent_points.xml
   def index
     @spent_points = SpentPoint.all
+    @users = User.all
+#    @spent_point = SpentPoint.find(:select)
 
-    respond_to do |format|
+    #20日分の日付リストをつくる
+    date = Date.today
+    date_box = Array.new
+    for i in 0..20
+      date_box << date - i
+    end
+    @date_box = date_box
+
+
+ respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @spent_points }
     end
