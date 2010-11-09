@@ -5,13 +5,20 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>SpentPoints: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'points' %>
 </head>
 <body>
+<div id="wrapper">
+  <div id="main">
 
-<p style="color: green"><%= notice %></p>
-
-<%= yield %>
-
+    <div id="header">
+       <p id="navi">
+         <%= render :partial => 'navi_link'%>
+       </p>
+    </div>
+    <p style="color: green"><%= notice %></p>
+    <%= yield %>
+  </div>
+</div>
 </body>
 </html>

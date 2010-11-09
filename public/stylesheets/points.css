@@ -7,12 +7,14 @@ body {
     margin-right : auto;
     margin-left : auto;
     width : 980px;
+    border : 3px solid #b2d281;
 }
 
 #main { 
-    margin-bottom : 20px;
-    width : 980px;   
-        border : 3px solid #b2d281;
+    margin-right : auto ;
+    margin-bottom : 20px ;
+    margin-left : auto ;
+    width : 900px ;   
 }
 
 h1 {
@@ -73,6 +75,11 @@ a:hover {
 li {
 	margin-left: 2em;
 	list-style : none;
+}
+
+input {
+	width : 100px ;
+	text-align : right ;
 }
 
 .left {
