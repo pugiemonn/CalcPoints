@@ -1,6 +1,7 @@
 <h1>Listing points</h1>
 <%= javascript_include_tag :defaults %>
 
+
 <table>
   <tr>
     <th>日付</th>
@@ -8,30 +9,38 @@
     <th><%= d.user_name %></th>
     <% end %>
   </tr>
-<!--  <tr>
+<tr>
     <td>消費合計</td>
-<% @users.each do |u| %>
-    <td id="td_sum_<%= u.id%>"><input type="text" /></td>
-<% end %>
-  </tr>
+    <td id="spent_1"><input type="text" value="<%=  %>" /></td>
+    <td id="spent_2"><input type="text" value="<%=  %>" /></td>
+    <td id="spent_3"><input type="text" value="<%=  %>" /></td>
+    <td id="spent_4"><input type="text" value="<%=  %>" /></td>
+    <td id="spent_5"><input type="text" value="<%=  %>" /></td>
+    <td id="spent_6"><input type="text" value="<%=  %>" /></td>
+</tr>
   <tr>
     <td>合計</td>
-<% @users.each do |u| %>
-    <td><input type="text" /></td>
-<% end %>
-  </tr>-->
+    <td id="sum_1"><input type="text" value="<%= @point_sum[0].point %>" /></td>
+    <td id="sum_2"><input type="text" value="<%=  %>" /></td>
+    <td id="sum_3"><input type="text" value="<%=  %>" /></td>
+    <td id="sum_4"><input type="text" value="<%=  %>" /></td>
+    <td id="sum_5"><input type="text" value="<%=  %>" /></td>
+    <td id="sum_6"><input type="text" value="<%=  %>" /></td>
+
+  </tr>
 <% @date_box.each do |d| %>
   <tr>
     <td><%=h d %></td>
     <td id="td_<%= @users[0].id%>_<%= d %>">
-      <input type="text" id="input_<%= @users[0].id%>_<%= d %>"  name="input_<%= @users[0].id%>_<%= d %>" value="<% @points1.each do |point1| -%>
+      <input type="text"  onfocus="this.select()" id="input_<%= @users[0].id%>_<%= d %>"  name="input_<%= @users[0].id%>_<%= d %>" value="<% @points1.each do |point1| -%>
 <% if d == point1.date -%>
 <%=h point1.point -%>
 <% end -%>
-<% end -%>" onChange="<%= remote_function(:update => "td_#{@users[0].id}_#{d}",
+<% end -%>" onChange="<%= remote_function(
+:update => "sum_#{@users[0].id}",
 :with => "'user_id=1&point=' + $('input_1_#{d}').value + '&date=#{d}'",
 :url => { 
-:action => 'update_point'
+#:action => 'update_point'
 }) -%>" />
     </td>
     <td>
