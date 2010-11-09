@@ -1,0 +1,24 @@
+<h1>Listing spent_points</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Point</th>
+    <th>Date</th>
+  </tr>
+
+<% @spent_points.each do |spent_point| %>
+  <tr>
+    <td><%=h spent_point.user_id %></td>
+    <td><%=h spent_point.point %></td>
+    <td><%=h spent_point.date %></td>
+    <td><%= link_to 'Show', spent_point %></td>
+    <td><%= link_to 'Edit', edit_spent_point_path(spent_point) %></td>
+    <td><%= link_to 'Destroy', spent_point, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New spent_point', new_spent_point_path %>
