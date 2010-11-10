@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :timelines
+
   map.resources :spent_points
 
   map.resources :logs

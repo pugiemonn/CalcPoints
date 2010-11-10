@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @timeline.user_id %>
+</p>
+
+<p>
+  <b>Point:</b>
+  <%=h @timeline.point %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%=h @timeline.date %>
+</p>
+
+
+<%= link_to 'Edit', edit_timeline_path(@timeline) %> |
+<%= link_to 'Back', timelines_path %>
