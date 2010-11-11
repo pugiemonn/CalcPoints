@@ -2,10 +2,52 @@
 
 <table>
   <tr>
-    <th>User</th>
-    <th>Point</th>
     <th>Date</th>
+    <% @users.each do |u| %>
+    <th><%= u.user_name %></th>
+    <% end %>
   </tr>
+
+<% @date_box.each do |d, b| %>
+  <tr>
+    <td><%=d %><% b%></td>
+    <% @users.each do |u|  %>
+      <td>
+        <%# @hoge = u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) ? "hoge" : "huga" %>
+        <%# @p = u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) ? u.points.find(:first, :conditions => "date=\"#{d}\"") : "" %>
+        
+	<% if u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) %> 
+		<% @p = u.points.find(:first, :conditions => "date=\"#{d}\"") %>
+		<% @hoge = "hoge" %>
+	<% else %>
+		<% @hoge = "huga" %>
+        <% end %>
+<!--
+        <% u.points.find(:all ,:select => "id,date,point,user_id", :group => :date).each do |p| %>
+          <% if p.date == d && p.point > 0 %>
+            <% @pid = [p.point,p.id]%>
+            <% @hoge = "hoge" %>
+            <%= p.point %>
+            <%= u.id %>
+            <% break %>
+          <% else %>
+            <% @hoge = "huga"  %>
+          <% end %>
+        <% end %>
+
+ -->
+        <% if @hoge == "hoge" %>
+          <%# @p.point %>
+          <% @hoge  %>
+          <%= link_to @p.point, :controller => 'points',:action => 'edit', :id => @p.id %>
+        <% else %>
+          <%= link_to 'New', :controller => 'points', :action => 'new', :user_id => 2, :date => d %>
+        <% end %>
+        <% @hoge %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
 
 <% @timelines.each do |timeline| %>
   <tr>

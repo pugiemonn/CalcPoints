@@ -3,6 +3,21 @@ class TimelinesController < ApplicationController
   # GET /timelines.xml
   def index
     @timelines = Timeline.all
+    @users = User.all
+#    @points = Point.find(:all, :group => :date, :order => :date, :include => :user)
+    @points = Point.find(:all, :order => :date, :include => :user)
+    #30日分の日付リスト
+    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
+
+#    @date_box.each do |d|
+      #print d
+#      Point.find(:all ,:select => "date,point", :group => :date).each do |p|
+      #print d
+#        if p.date == d
+#          print p.date
+#        end
+#      end
+#    end
 
     respond_to do |format|
       format.html # index.html.erb

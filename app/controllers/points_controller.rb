@@ -2,55 +2,54 @@ class PointsController < ApplicationController
   # GET /points
   # GET /points.xml
 
-  def create
-    #render :text => "hogehoge"
-    @user_id = params[:user_id]
-    @point = params[:point]
-    @date = params[:date]
+#  def create
+#    @user_id = params[:user_id]
+#    @point = params[:point]
+#    @date = params[:date]
 
 #    @flag = Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
 
     #ログテーブルへの書き込み
-    if Log.exists?(["user_id = ? and date = ? ", @user_id, @date])
-      @point_old = Point.find(:all, :conditions => ["user_id = ? and date = ? ", @user_id, @date ])
-      @point_diff = @point_old[0].point.to_i - @point.to_i
-      p @point_old[0].point.to_i
+#    if Log.exists?(["user_id = ? and date = ? ", @user_id, @date])
+#      @point_old = Point.find(:all, :conditions => ["user_id = ? and date = ? ", @user_id, @date ])
+#      @point_diff = @point_old[0].point.to_i - @point.to_i
+#      p @point_old[0].point.to_i
 
 #      update=Log.find(all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
 #      update.point_sum=@point     
 #      update.update_attribute(:point_sum, @point)
 #      update.save
-      Log.update_all("point_sum=" + @point_diff.to_s + "", ["user_id = ? and date = ? ",  @user_id , @date ] )
-    else
-      log = Log.new
-      log.user_id = @user_id
-      log.point_sum = @point
-      log.spent_sum = @point
-      log.date = @date
-      log.save
-    end
+#      Log.update_all("point_sum=" + @point_diff.to_s + "", ["user_id = ? and date = ? ",  @user_id , @date ] )
+#    else
+#      log = Log.new
+#      log.user_id = @user_id
+#      log.point_sum = @point
+#      log.spent_sum = @point
+#      log.date = @date
+#      log.save
+#    end
 
 
-    if Point.exists?(["user_id = ? and date = ? ",  @user_id , @date ])
+#    if Point.exists?(["user_id = ? and date = ? ",  @user_id , @date ])
 #      update=Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
 #      update.point=@point     
 #      update.update_attribute(:point, @point)
 #      update.save
-     Point.update_all("point=" + @point + "", ["user_id = ? and date = ? ",  @user_id , @date ] )
-    else
-      point = Point.new
-      point.user_id = @user_id
-      point.point = @point
-      point.date = @date
-      point.save
-    end
+#     Point.update_all("point=" + @point + "", ["user_id = ? and date = ? ",  @user_id , @date ] )
+#    else
+#      point = Point.new
+#      point.user_id = @user_id
+#      point.point = @point
+#      point.date = @date
+#      point.save
+#    end
 
 
-    @point = Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
-    @point_sum = Point.find_by_sql("select sum(point) as point  from points where user_id =1")
+#    @point = Point.find(:all, :conditions => ["user_id = ? and date = ? ",  @user_id , @date ])
+#    @point_sum = Point.find_by_sql("select sum(point) as point  from points where user_id =1")
 
     #render :text  => User.find(:all, :select => "id" ,:conditions => "id == 3")
-    render :inline  => "<input type=\"text\" id=\"input_<%= @date %>\" name=\"input_<%= @date %>\"  value=\"<%= @point_sum[0].point %>\" />"
+#    render :inline  => "<input type=\"text\" id=\"input_<%= @date %>\" name=\"input_<%= @date %>\"  value=\"<%= @point_sum[0].point %>\" />"
 # onChange=\"<%= remote_function(:update => \"td_1_#{@date}\",
 #:with => \"'user_id=#{@user_id}&point=' + $('input_#{@date}').value + '&date=#{@date}' \",
 #:url => { 
@@ -58,7 +57,7 @@ class PointsController < ApplicationController
 #}) -%>\"
 #  />"
     #render :text => CGI.escapeHTML(params[:user_id])
-  end
+#  end
 
 
 
@@ -71,7 +70,8 @@ class PointsController < ApplicationController
       redirect_to :controller => 'users' 
     end
 
-    @points = Point.find(:all, :group => :date, :order => 'date desc', :include => :user)
+    @points = Point.all
+#    @points = Point.find(:all, :group => :date, :order => 'date desc', :include => :user)
     @points1 = Point.find(:all, :conditions => "user_id == 1", :order => 'date desc', :include => :user)
     @points2 = Point.find(:all, :conditions => "user_id == 2", :order => 'date desc', :include => :user)
     @points3 = Point.find(:all, :conditions => "user_id == 3", :order => 'date desc', :include => :user)
@@ -129,38 +129,38 @@ class PointsController < ApplicationController
 
   # POST /points
   # POST /points.xml
-#  def create
-#    @point = Point.new(params[:point])
-#
-#    respond_to do |format|
-#      if @point.save
-#        format.html { redirect_to(@point, :notice => 'Point was successfully created.') }
-#        format.xml  { render :xml => @point, :status => :created, :location => @point }
-#      else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
-#      end
-#    end
-#  end
+  def create
+    @point = Point.new(params[:point])
+
+    respond_to do |format|
+      if @point.save
+        format.html { redirect_to(@point, :notice => 'Point was successfully created.') }
+        format.xml  { render :xml => @point, :status => :created, :location => @point }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # PUT /points/1
   # PUT /points/1.xml
   def update
-    @point = params[:point]
-    @date = date[:date]
+#    @point = params[:point]
+#    @date = date[:date]
     
-    render :text => 'hoge'  
+#    render :text => 'hoge'  
 
-#    @point = Point.find(params[:id])
-#    respond_to do |format|
-#      if @point.update_attributes(params[:point])
-#        format.html { redirect_to(@point, :notice => 'Point was successfully updated.') }
-#        format.xml  { head :ok }
-#      else
-#        format.html { render :action => "edit" }
-#        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
-#      end
-#    end
+    @point = Point.find(params[:id])
+    respond_to do |format|
+      if @point.update_attributes(params[:point])
+        format.html { redirect_to(@point, :notice => 'Point was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @point.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /points/1
