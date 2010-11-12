@@ -115,7 +115,7 @@ class PointsController < ApplicationController
   # GET /points/new.xml
   def new
     @point = Point.new
-
+    @users = User.all
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @point }

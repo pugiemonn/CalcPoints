@@ -2,22 +2,32 @@
 
 <% form_for(@point) do |f| %>
   <%= f.error_messages %>
-
+  <!--ユーザ-->
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%=  f.label :user_id %><br />
+    <% if @uid=params[:user_id] %>
+      <%=  @uid + hidden_field_tag("point[user_id]",@uid,:id=>"point_user_id")  %> 
+    <% else %>
+      <%=  f.text_field :user_id %>
+    <% end %>
   </p>
+  <!--ポイント-->
   <p>
     <%= f.label :point %><br />
     <%= f.text_field :point %>
   </p>
+  <!--日付-->
   <p>
     <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <% if @date=params[:date] %>
+      <%= @date %><%= hidden_field_tag("point[date]",params[:date],:id=>"date")%>
+    <% else %>
+      <%= f.date_select :date %>
+    <% end %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Create', :class => 'text-center' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', points_path %>
+<%= link_to 'Back', timelines_path %>

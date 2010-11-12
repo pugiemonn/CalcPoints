@@ -2,23 +2,29 @@
 
 <% form_for(@point) do |f| %>
   <%= f.error_messages %>
-
+  <!--ユーザ-->
   <p>
     <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= @point.user_id %>
+    <%= hidden_field_tag("point[user_id]",@point.user_id) %>
+    <!--<%= f.text_field :user_id %>-->
   </p>
+  <!--ポイント-->
   <p>
     <%= f.label :point %><br />
     <%= f.text_field :point %>
   </p>
+  <!--日付-->
   <p>
     <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <%= @point.date%>
+    <%= hidden_field_tag("point[date]",@point.date) %>
+    <!--<%= f.date_select :date %>-->
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update', :class => 'text-center' %>
   </p>
 <% end %>
 
 <%= link_to 'Show', @point %> |
-<%= link_to 'Back', points_path %>
+<%= link_to 'Back', timelines_path %>

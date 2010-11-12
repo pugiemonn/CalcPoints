@@ -1,6 +1,16 @@
 <h1>Listing timelines</h1>
 
 <table>
+
+  <tr>
+    <td>合計</td>
+
+    <% @users.each do |u| %>
+    <td><%= u.points.sum(:point, :conditions => ["user_id = ?", u.id]) %></td>
+    <% end %>
+
+  </tr>
+
   <tr>
     <th>Date</th>
     <% @users.each do |u| %>
@@ -18,30 +28,19 @@
         
 	<% if u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) %> 
 		<% @p = u.points.find(:first, :conditions => "date=\"#{d}\"") %>
+                <%# フラグ  %>
 		<% @hoge = "hoge" %>
 	<% else %>
+                <%# フラグ  %>
 		<% @hoge = "huga" %>
         <% end %>
-<!--
-        <% u.points.find(:all ,:select => "id,date,point,user_id", :group => :date).each do |p| %>
-          <% if p.date == d && p.point > 0 %>
-            <% @pid = [p.point,p.id]%>
-            <% @hoge = "hoge" %>
-            <%= p.point %>
-            <%= u.id %>
-            <% break %>
-          <% else %>
-            <% @hoge = "huga"  %>
-          <% end %>
-        <% end %>
 
- -->
         <% if @hoge == "hoge" %>
           <%# @p.point %>
           <% @hoge  %>
           <%= link_to @p.point, :controller => 'points',:action => 'edit', :id => @p.id %>
         <% else %>
-          <%= link_to 'New', :controller => 'points', :action => 'new', :user_id => 2, :date => d %>
+          <%= link_to '0', :controller => 'points', :action => 'new', :user_id => u.id, :date => d %>
         <% end %>
         <% @hoge %>
       </td>
@@ -49,6 +48,7 @@
   </tr>
 <% end %>
 
+<!--
 <% @timelines.each do |timeline| %>
   <tr>
     <td><%=h timeline.user_id %></td>
@@ -59,8 +59,10 @@
     <td><%= link_to 'Destroy', timeline, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
+-->
 </table>
 
 <br />
-
+<!--
 <%= link_to 'New timeline', new_timeline_path %>
+-->
