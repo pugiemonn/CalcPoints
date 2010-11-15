@@ -1,6 +1,19 @@
-<h1>消費ポイント</h1>
-
+<h1>消費ポイント一覧</h1>
+<p>ー <%= @last_month.next_month.year %>年<%= @last_month.next_month.month %>月の消費ポイント ー</p>
 <table>
+  <tr>
+    <td class="overflow border-none" colspan="<%= @users.count + 1%>">
+      <p class="left">
+        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "spent_points" , :action => "index", :date => "#{@last_month}" %>
+      </p>
+      <p class="right">
+        <% if @next_month < Date.today %>
+        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "spent_points" , :action => "index", :date => "#{@next_month}" %>
+        <% end %>
+      </p>
+    </td>
+  </tr>
+
   <tr>
     <th>日付</th>
     <% @users.each do |u|%>	
@@ -36,16 +49,29 @@
     <% end %>
   </tr>
 <% end %>
+  <tr>
+    <td class="overflow border-none" colspan="<%= @users.count + 1%>">
+      <p class="left">
+        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "spent_points" , :action => "index", :date => "#{@last_month}" %>
+      </p>
+      <p class="right">
+        <% if @next_month < Date.today %>
+        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "spent_points" , :action => "index", :date => "#{@next_month}" %>
+        <% end %>
+      </p>
+    </td>
+  </tr>
+
 </table>
 
 
+<!--
 <table>
   <tr>
     <th>User</th>
     <th>Point</th>
-    <th>Date</th>
+    <th colspan="4">Date</th>
   </tr>
-
 <% @spent_points.each do |spent_point| %>
   <tr>
     <td><%=h spent_point.user_id %></td>
@@ -57,7 +83,9 @@
   </tr>
 <% end %>
 </table>
+-->
 
 <br />
-
+<!--
 <%= link_to 'New spent_point', new_spent_point_path %>
+-->

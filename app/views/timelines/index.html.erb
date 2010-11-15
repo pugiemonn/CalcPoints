@@ -1,8 +1,19 @@
-<h1>Listing timelines</h1>
-<!--<%= link_to  "<<#{@last_month}" , new_timeline_path %>-->
-
+<h1>タイムライン</h1>
+<p>ー <%= @last_month.next_month.year %>年<%= @last_month.next_month.month %>月のタイムライン ー</p>
+<div id="hoge"></div>
 <table>
-
+  <tr>
+    <td class="overflow border-none" colspan="<%= @users.count + 1%>">
+      <p class="left">
+        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "timelines" , :action => "index", :date => "#{@last_month}" %>
+      </p>
+      <p class="right">
+        <% if @next_month < Date.today %>
+        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "timelines" , :action => "index", :date => "#{@next_month}" %>
+        <% end %>
+      </p>
+    </td>
+  </tr>
   <tr>
     <td>消費合計</td>
     <% @users.each do |u| %>
@@ -26,10 +37,9 @@
 
 <% @date_box.each do |d, b| %>
   <tr>
-    <td><%=d %><% b%></td>
+    <td><%=d %></td>
     <% @users.each do |u|  %>
       <td>
-        <%# @hoge = u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) ? "hoge" : "huga" %>
         <%# @p = u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) ? u.points.find(:first, :conditions => "date=\"#{d}\"") : "" %>
         
 	<% if u.points.find(:first, :conditions => "date=\"#{d}\"").try(:id) %> 
@@ -42,13 +52,11 @@
         <% end %>
 
         <% if @hoge == "hoge" %>
-          <%# @p.point %>
-          <% @hoge  %>
           <%= link_to @p.point, :controller => 'points',:action => 'edit', :id => @p.id, :user_id => u.id, :date => d %>
+          <%#= link_to_remote %>
         <% else %>
           <%= link_to '0', :controller => 'points', :action => 'new', :user_id => u.id, :date => d %>
         <% end %>
-        <% @hoge %>
       </td>
     <% end %>
   </tr>
@@ -66,7 +74,23 @@
   </tr>
 <% end %>
 -->
+  <tr>
+    <td class="overflow border-none" colspan="<%= @users.count + 1%>">
+      <p class="left">
+        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "timelines" , :action => "index", :date => "#{@last_month}" %>
+      </p>
+      <p class="right">
+        <% if @next_month < Date.today %>
+        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "timelines" , :action => "index", :date => "#{@next_month}" %>
+        <% end %>
+      </p>
+    </td>
+  </tr>
+
+
+
 </table>
+
 
 <br />
 <!--

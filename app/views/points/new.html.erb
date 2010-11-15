@@ -8,13 +8,16 @@
     <% if @uid=params[:user_id] %>
       <%=  @user.user_name + hidden_field_tag("point[user_id]",@uid,:id=>"point_user_id")  %> 
     <% else %>
+      <%= @point.user_id %>
+<!--
       <%=  f.text_field :user_id %>
+-->
     <% end %>
   </p>
   <!--ポイント-->
   <p>
-    <%= f.label :point %>：
-    <%= f.text_field :point %>
+    <%= f.label :point -%>：
+    <%= f.text_field :point -%>
   </p>
   <!--日付-->
   <p>
@@ -22,7 +25,10 @@
     <% if @date=params[:date] %>
       <%= @date %><%= hidden_field_tag("point[date]",params[:date],:id=>"date")%>
     <% else %>
+      <%= @point.date %>
+<!--
       <%= f.date_select :date %>
+-->
     <% end %>
   </p>
   <p>

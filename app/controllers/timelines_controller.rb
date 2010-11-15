@@ -6,32 +6,52 @@ class TimelinesController < ApplicationController
     @users = User.all
 #    @points = Point.find(:all, :group => :date, :order => :date, :include => :user)
     @points = Point.find(:all, :order => :date, :include => :user)
-#    @spent_points = SpentPoint.find(:all, :order => :date, :include => :user)
-    #30日分の日付リスト
-#    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
-     @date_box = ((Time.now.beginning_of_month.to_date)..(Date.today)).to_a.reverse   
 
-#    date = Date.today
-#    date_box = Array.new
-#    for i in 0..20
-#      date_box << date - i
-#    end
-#    @date_box = date_box
+    if params[:date].nil?
+      date = Date.today
+      date_end = date
+    else
+    if params[:date].to_date < Date.today.beginning_of_month.to_date
 
+      date = params[:date].to_date
+      date_end = date.next_month.beginning_of_month.to_date - 1
+    else
+      date = Date.today
+      date_end = date
+    end
+    end
 
-#     @last_month = (Time.now.last_month)
-     @last_month =  Time.now.last_month.beginning_of_month.to_date
+    #先月
+    @last_month =  date.last_month.beginning_of_month.to_date 
+    #次月
+    @next_month = @last_month.next_month.next_month 
+#    @next_month = @last_month < date.last_month.beginning_of_month ? @last_month.next_month.next_month : nil
+    #今月
+#    @this_month = @last_month.next_month
 
     
-#    @date_box.each do |d|
-      #print d
-#      Point.find(:all ,:select => "date,point", :group => :date).each do |p|
-      #print d
-#        if p.date == d
-#          print p.date
-#        end
-#      end
-#    end
+
+    date_box = Array.new
+    wdays_box = Array.new
+    wdays = ["(日)", "（月）", "（火）", "（水）", "（木）", "（金）", "土"]
+    #その月の日付リスト
+#    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
+     @date_box = ((date.beginning_of_month.to_date)..(date_end)).to_a.reverse   
+
+    #平日のリストを作る
+    @date_box.each do |t|
+      if t.wday > 0 && t.wday < 6
+        #print t.to_s
+        date_box << t.to_s
+        #曜日の指定
+        #wdays_box << wdays[t.wday]
+      end
+    end
+
+    @date_box = date_box
+    #@wdays_box = wdays_box
+
+
 
     respond_to do |format|
       format.html # index.html.erb

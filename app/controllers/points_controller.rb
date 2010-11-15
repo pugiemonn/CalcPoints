@@ -128,7 +128,9 @@ class PointsController < ApplicationController
   # GET /points/1/edit
   def edit
     @point = Point.find(params[:id])
-    @user = User.find(params[:user_id])
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    end
   end
 
   # POST /points

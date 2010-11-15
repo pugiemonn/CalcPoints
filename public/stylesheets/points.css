@@ -7,7 +7,8 @@ body {
     margin-right : auto ;
     margin-left : auto ;
     width : 980px ;
-    border : 3px solid #b2d281 ;
+/*    border : 3px solid #b2d281 ;*/
+    border : 1px solid #CCCCCC ;
 }
 
 #main { 
@@ -57,8 +58,10 @@ p#navi {
 #footer {
         margin-bottom : 10px ;
         padding: 10px 0 ;
-        width : 980px ;
+	text-align : center ;
+/*        width : 980px ;
         border : 3px solid #b2d281 ;
+*/
 }
 
 #footer p {
@@ -99,18 +102,23 @@ input {
 .text-center, th, td {
 	text-align : center ;
 }
+.border-none {
+	border : none ;
+}
 
 .overflow, p.status-body {
         overflow: hidden ;
 }
-
+/*
 table {
-	border-top : 1px solid #ccc ;
 	border-right : 1px solid #ccc ;
-}
-
-th, td {
 	border-bottom : 1px solid #ccc ;
+}
+*/
+th, td {
+	border-top : 1px solid #ccc ;
 	border-left : 1px solid #ccc ;
+	border-right : 1px solid #ccc ;
+	border-bottom : 1px solid #ccc ;
 }
 

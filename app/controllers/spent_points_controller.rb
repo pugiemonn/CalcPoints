@@ -6,9 +6,50 @@ class SpentPointsController < ApplicationController
     @users = User.all
 #    @spent_point = SpentPoint.find(:select)
 
+    if params[:date].nil?
+      date = Date.today
+      date_end = date
+    else
+    if params[:date].to_date < Date.today.beginning_of_month.to_date
+
+      date = params[:date].to_date
+      date_end = date.next_month.beginning_of_month.to_date - 1
+    else
+      date = Date.today
+      date_end = date
+    end
+    end
+
+    #先月
+    @last_month =  date.last_month.beginning_of_month.to_date 
+    #次月
+    @next_month = @last_month.next_month.next_month 
+
+
+
     #20日分の日付リストをつくる
 #    @date_box = ((20.days.ago.to_date)..(Date.today)).to_a.reverse
-    @date_box = ((Time.now.beginning_of_month.to_date)..(Date.today)).to_a.reverse
+#    @date_box = ((Time.now.beginning_of_month.to_date)..(Date.today)).to_a.reverse
+
+    date_box = Array.new
+    wdays_box = Array.new
+    wdays = ["(日)", "（月）", "（火）", "（水）", "（木）", "（金）", "土"]
+    #その月の日付リスト
+#    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
+     @date_box = ((date.beginning_of_month.to_date)..(date_end)).to_a.reverse  
+
+    #平日のリストを作る
+    @date_box.each do |t|
+      if t.wday > 0 && t.wday < 6
+        #print t.to_s
+        date_box << t.to_s
+        #曜日の指定
+        #wdays_box << wdays[t.wday]
+      end
+    end
+
+    @date_box = date_box
+
 
 
   respond_to do |format|
