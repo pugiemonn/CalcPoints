@@ -104,6 +104,8 @@ class PointsController < ApplicationController
   # GET /points/1.xml
   def show
     @point = Point.find(params[:id])
+    @user = User.find(:first, :joins => "inner join points on users.id = points.user_id", :conditions => [ "points.id = ?",params[:id]])
+#    @user = User.all
 
     respond_to do |format|
       format.html # show.html.erb
@@ -116,6 +118,7 @@ class PointsController < ApplicationController
   def new
     @point = Point.new
     @users = User.all
+    @user = User.find(params[:user_id])
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @point }
@@ -125,6 +128,7 @@ class PointsController < ApplicationController
   # GET /points/1/edit
   def edit
     @point = Point.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # POST /points

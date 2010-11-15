@@ -1,6 +1,7 @@
 <p>
   <b>User:</b>
-  <%=h @point.user_id %>
+<!--  <%=h @point.user_id %>-->
+  <%=h @user.user_name %>
 </p>
 
 <p>
@@ -14,5 +15,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_point_path(@point) %> |
+<!--<%= link_to 'Edit', edit_point_path(@point) %> |-->
+<%= link_to 'Edit', :action => 'edit', :id => @point.id, :user_id => @point.user_id , :date =>@point.date %> |
 <%= link_to 'Back', timelines_path %>
