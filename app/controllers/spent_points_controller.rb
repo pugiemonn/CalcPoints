@@ -7,10 +7,11 @@ class SpentPointsController < ApplicationController
 #    @spent_point = SpentPoint.find(:select)
 
     #20日分の日付リストをつくる
-    @date_box = ((20.days.ago.to_date)..(Date.today)).to_a.reverse
+#    @date_box = ((20.days.ago.to_date)..(Date.today)).to_a.reverse
+    @date_box = ((Time.now.beginning_of_month.to_date)..(Date.today)).to_a.reverse
 
 
- respond_to do |format|
+  respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @spent_points }
     end
@@ -20,6 +21,7 @@ class SpentPointsController < ApplicationController
   # GET /spent_points/1.xml
   def show
     @spent_point = SpentPoint.find(params[:id])
+    @user = User.find(:first, :joins => "inner join spent_points on users.id = spent_points.user_id", :conditions => [ "spent_points.id = ?",params[:id]])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,6 +33,8 @@ class SpentPointsController < ApplicationController
   # GET /spent_points/new.xml
   def new
     @spent_point = SpentPoint.new
+    @users = User.all
+    @user = User.find(params[:user_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +45,7 @@ class SpentPointsController < ApplicationController
   # GET /spent_points/1/edit
   def edit
     @spent_point = SpentPoint.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # POST /spent_points

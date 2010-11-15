@@ -1,57 +1,39 @@
-<h1>Listing spent_points</h1>
-
-<%= javascript_include_tag :defaults %>
-
+<h1>消費ポイント</h1>
 
 <table>
   <tr>
     <th>日付</th>
-    <% @users.each do |d|%>	
-    <th><%= d.user_name %></th>
+    <% @users.each do |u|%>	
+    <th><%= u.user_name %></th>
     <% end %>
   </tr>
 <tr>
     <td>消費合計</td>
-    <td id="spent_1"><input type="text" value="<%=  %>" /></td>
-    <td id="spent_2"><input type="text" value="<%=  %>" /></td>
-    <td id="spent_3"><input type="text" value="<%=  %>" /></td>
-    <td id="spent_4"><input type="text" value="<%=  %>" /></td>
-    <td id="spent_5"><input type="text" value="<%=  %>" /></td>
-    <td id="spent_6"><input type="text" value="<%=  %>" /></td>
+    <% @users.each do |u|%>
+    <td><%= u.spent_points.sum(:point)  %></td>
+    <% end %>
 </tr>
-  <tr>
-    <td>合計</td>
-    <td id="sum_1"><input type="text" value="<%=  %>" /></td>
-    <td id="sum_2"><input type="text" value="<%=  %>" /></td>
-    <td id="sum_3"><input type="text" value="<%=  %>" /></td>
-    <td id="sum_4"><input type="text" value="<%=  %>" /></td>
-    <td id="sum_5"><input type="text" value="<%=  %>" /></td>
-    <td id="sum_6"><input type="text" value="<%=  %>" /></td>
-
-  </tr>
 <% @date_box.each do |d| %>
   <tr>
     <td><%=h d %></td>
-    <td id="td_<%= @users[0].id%>_<%= d %>">
-      <input name="" type="text" />
-    </td>
+    <% @users.each do |u| %>
     <td>
-      <input name="" type="text" />
-    </td>
-    <td>
-      <input name="" type="text" />
-    </td>
+	<% if u.spent_points.find(:first, :conditions => "date=\"#{d}\"").try(:id) %> 
+		<% @p = u.spent_points.find(:first, :conditions => "date=\"#{d}\"") %>
+                <%# フラグ  %>
+		<% @hoge = "hoge" %>
+	<% else %>
+                <%# フラグ  %>
+		<% @hoge = "huga" %>
+        <% end %>
 
-    <td>
-      <input name="" type="text" />
+	<% if @hoge=="hoge" %>
+          <%= link_to @p.point, :action => 'edit', :id => @p.id, :user_id => @p.user_id, :date => d  %>
+        <% else %>
+          <%= link_to '0', :action => 'new', :user_id => u.id, :date => d %>
+        <% end %>
     </td>
-    <td>
-      <input name=""  type="text" />
-    </td>
-    <td>
-      <input name=""  type="text" />
-    </td>
-
+    <% end %>
   </tr>
 <% end %>
 </table>

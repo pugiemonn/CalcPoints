@@ -4,20 +4,27 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :user_id %><br />
+    <%= f.label :user_id %>：
+    <% if @uid=params[:user_id] %>
+      <%= @user.user_name %>
+      <%= hidden_field_tag("spent_point[user_id]",@uid,:id=>"spent_point_user_id")  %> 
+    <% else %>
     <%= f.text_field :user_id %>
+      <%= @user.user_name %>
+    <% end %>
   </p>
   <p>
-    <%= f.label :point %><br />
-    <%= f.text_field :point %>
+    <%= f.label :point %>：
+    <%=h f.text_field :point %>
   </p>
   <p>
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <%= f.label :date %>：
+    <%=h params[:date] %><%=h hidden_field_tag("spent_point[date]", params[:date], :id => "spent_point_date")%>
+<!--    <%= f.date_select :date %>-->
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Create', :class => 'text-center'  %>
   </p>
 <% end %>
 
-<%= link_to 'Back', spent_points_path %>
+<%= link_to 'Back', spent_points_path, :class => 'text-center' %>

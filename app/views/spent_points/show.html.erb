@@ -1,6 +1,7 @@
 <p>
   <b>User:</b>
-  <%=h @spent_point.user_id %>
+<!--  <%=h @spent_point.user_id %>-->
+  <%=h @user.user_name%>
 </p>
 
 <p>
@@ -13,6 +14,6 @@
   <%=h @spent_point.date %>
 </p>
 
-
-<%= link_to 'Edit', edit_spent_point_path(@spent_point) %> |
+<!--<%= link_to 'Edit', edit_spent_point_path(@spent_point), :user_id => @spent_point.user_id , :date =>@spent_point.date %> |-->
+<%= link_to 'Edit', :action => 'edit', :id => @spent_point.id, :user_id => @spent_point.user_id , :date =>@spent_point.date %> |
 <%= link_to 'Back', spent_points_path %>
