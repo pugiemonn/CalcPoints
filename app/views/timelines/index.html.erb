@@ -1,10 +1,16 @@
 <h1>Listing timelines</h1>
+<!--<%= link_to  "<<#{@last_month}" , new_timeline_path %>-->
 
 <table>
 
   <tr>
+    <td>消費合計</td>
+    <% @users.each do |u| %>
+    <td><%= u.spent_points.sum(:point, :conditions => ["user_id = ?", u.id]) %></td>
+    <% end %>
+  </tr>
+  <tr>
     <td>合計</td>
-
     <% @users.each do |u| %>
     <td><%= u.points.sum(:point, :conditions => ["user_id = ?", u.id]) %></td>
     <% end %>
@@ -38,7 +44,7 @@
         <% if @hoge == "hoge" %>
           <%# @p.point %>
           <% @hoge  %>
-          <%= link_to @p.point, :controller => 'points',:action => 'edit', :id => @p.id %>
+          <%= link_to @p.point, :controller => 'points',:action => 'edit', :id => @p.id, :user_id => u.id, :date => d %>
         <% else %>
           <%= link_to '0', :controller => 'points', :action => 'new', :user_id => u.id, :date => d %>
         <% end %>

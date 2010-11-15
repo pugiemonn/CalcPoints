@@ -6,9 +6,23 @@ class TimelinesController < ApplicationController
     @users = User.all
 #    @points = Point.find(:all, :group => :date, :order => :date, :include => :user)
     @points = Point.find(:all, :order => :date, :include => :user)
+#    @spent_points = SpentPoint.find(:all, :order => :date, :include => :user)
     #30日分の日付リスト
-    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
+#    @date_box = ((5.days.ago.to_date)..(Date.today)).to_a.reverse
+     @date_box = ((Time.now.beginning_of_month.to_date)..(Date.today)).to_a.reverse   
 
+#    date = Date.today
+#    date_box = Array.new
+#    for i in 0..20
+#      date_box << date - i
+#    end
+#    @date_box = date_box
+
+
+#     @last_month = (Time.now.last_month)
+     @last_month =  Time.now.last_month.beginning_of_month.to_date
+
+    
 #    @date_box.each do |d|
       #print d
 #      Point.find(:all ,:select => "date,point", :group => :date).each do |p|
