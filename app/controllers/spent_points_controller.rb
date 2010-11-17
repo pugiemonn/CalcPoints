@@ -21,7 +21,7 @@ class SpentPointsController < ApplicationController
     end
 
     #先月
-    @last_month =  date.last_month.beginning_of_month.to_date 
+    @last_month =  date.prev_month.beginning_of_month.to_date 
     #次月
     @next_month = @last_month.next_month.next_month 
 
