@@ -4,7 +4,7 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :user_id %>：
+    <%= f.label :user_id %>
     <% if @uid=params[:user_id] %>
       <%= @user.user_name %>
       <%= hidden_field_tag("spent_point[user_id]",@uid,:id=>"spent_point_user_id")  %> 
@@ -14,10 +14,10 @@
     <% end %>
   </p>
   <p>
-    <%= f.label :point -%>：<%=h f.text_field :point -%>
+    <%= f.label :point -%><%=h f.text_field :point -%>
   </p>
   <p>
-    <%= f.label :date %>：
+    <%= f.label :date %>
     <% if params[:date]%>
     <%=h params[:date] %><%=h hidden_field_tag("spent_point[date]", params[:date], :id => "spent_point_date")%>
     <% else %>

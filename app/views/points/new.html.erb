@@ -4,7 +4,7 @@
   <%= f.error_messages %>
   <!--ユーザ-->
   <p>
-    <%=  f.label :user_id %>：
+    <%=  f.label :user_id %>
     <% if @uid=params[:user_id] %>
       <%=  @user.user_name + hidden_field_tag("point[user_id]",@uid,:id=>"point_user_id")  %> 
     <% else %>
@@ -16,12 +16,12 @@
   </p>
   <!--ポイント-->
   <p>
-    <%= f.label :point -%>：
+    <%= f.label :point -%>
     <%= f.text_field :point -%>
   </p>
   <!--日付-->
   <p>
-    <%= f.label :date %>：
+    <%= f.label :date %>
     <% if @date=params[:date] %>
       <%= @date %><%= hidden_field_tag("point[date]",params[:date],:id=>"date")%>
     <% else %>
