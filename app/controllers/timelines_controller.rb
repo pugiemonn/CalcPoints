@@ -9,7 +9,7 @@ class TimelinesController < ApplicationController
 
     if params[:date].nil?
       date = Date.today
-      date_end = date
+      date_end = date-1 #当日を表示しないために１日を引いている
     else
     if params[:date].to_date < Date.today.beginning_of_month.to_date
 
@@ -17,7 +17,7 @@ class TimelinesController < ApplicationController
       date_end = date.next_month.beginning_of_month.to_date - 1
     else
       date = Date.today
-      date_end = date
+      date_end = date-1 #当日を表示しないために１日を引いている
     end
     end
 
