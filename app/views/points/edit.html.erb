@@ -1,5 +1,5 @@
 <h1>ポイント編集</h1>
-
+<%#= javascript_include_tag :defaults %>
 <% form_for(@point) do |f| %>
   <%= f.error_messages %>
   <!--ユーザ-->
@@ -28,6 +28,17 @@
     <%= f.submit 'Update', :class => 'text-center' %>
   </p>
 <% end %>
-
+<!--<%= link_to_remote("hogehoge", :method => :put , :url => { :controller => "points", :action => "update" ,:id => @point.id, :user_id => params[:user_id], :date => params[:date], :point => @point.point})%>-->
+<!--
+<%= link_to_remote("hogehoge", :method => :put , :url => { :controller => "points", :action => "update" ,:id => @point.id, :point => {:user_id => params[:user_id], :date => params[:date], :point => "oElement.getAttributeNode(\"point_point\").value"}})%>
+<a href="#" onclick="func0();return false;">aaa</a>
+-->
+<!--
 <%= link_to 'Show', @point %> |
-<%= link_to 'Back', timelines_path %>
+<%= link_to 'Back', timelines_path %>-->
+
+<script type="text/javascript">
+  function func0() {
+  alert("hoge");
+  }
+</script>

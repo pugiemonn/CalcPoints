@@ -1,6 +1,8 @@
 class TimelinesController < ApplicationController
   # GET /timelines
   # GET /timelines.xml
+
+
   def index
     @timelines = Timeline.all
     @users = User.all

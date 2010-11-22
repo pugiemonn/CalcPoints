@@ -1,7 +1,6 @@
 class PointsController < ApplicationController
   # GET /points
   # GET /points.xml
-
 #  def create
 #    @user_id = params[:user_id]
 #    @point = params[:point]
@@ -107,10 +106,12 @@ class PointsController < ApplicationController
     @user = User.find(:first, :joins => "inner join points on users.id = points.user_id", :conditions => [ "points.id = ?",params[:id]])
 #    @user = User.all
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @point }
-    end
+#    respond_to do |format|
+#      format.html # show.html.erb
+#      format.xml  { render :xml => @point }
+#    end
+    redirect_to :controller => "timelines",
+                :action => "index"
   end
 
   # GET /points/new
@@ -131,6 +132,8 @@ class PointsController < ApplicationController
     if params[:user_id]
       @user = User.find(params[:user_id])
     end
+#    redirect_to :controller => "timelines",
+#		:action => "index"
   end
 
   # POST /points
