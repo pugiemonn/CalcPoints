@@ -72,7 +72,8 @@
 -->
 <!--	  <a href="#" onclick="func09();return false;">aaa</a>-->
         <% else %>
-          <%= link_to '0', :controller => 'points', :action => 'new', :user_id => u.id, :date => d %>
+<!--          <%= link_to '0', :controller => 'points', :action => 'new', :user_id => u.id, :date => d %>-->
+          <%= link_to_remote("0", :method => :get, :update => "hoge", :url => { :controller => "points", :action => "new", :user_id => u.id, :date => d})%>
         <% end %>
       </td>
     <% end %>
@@ -109,7 +110,6 @@
 </table>
 
 
-<br />
 <!--
 <%= link_to 'New timeline', new_timeline_path %>
 -->
