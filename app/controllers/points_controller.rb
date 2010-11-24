@@ -104,14 +104,13 @@ class PointsController < ApplicationController
   def show
     @point = Point.find(params[:id])
     @user = User.find(:first, :joins => "inner join points on users.id = points.user_id", :conditions => [ "points.id = ?",params[:id]])
-#    @user = User.all
 
 #    respond_to do |format|
 #      format.html # show.html.erb
 #      format.xml  { render :xml => @point }
 #    end
-    redirect_to :controller => "timelines",
-                :action => "index"
+#タイムラインへリダイレクト
+     redirect_to_timelines
   end
 
   # GET /points/new
@@ -182,5 +181,9 @@ class PointsController < ApplicationController
       format.html { redirect_to(points_url) }
       format.xml  { head :ok }
     end
+  end
+private
+  def redirect_to_timelines
+    redirect_to :controller => "timelines", :action => "index"
   end
 end

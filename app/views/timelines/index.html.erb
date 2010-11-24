@@ -15,11 +15,14 @@
   <tr>
     <td class="overflow border-none" colspan="<%= @users.count + 1%>">
       <p class="left">
-        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "timelines" , :action => "index", :date => "#{@last_month}" %>
+        <%#= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "timelines" , :action => "index", :date => "#{@last_month}" %>
+        <%#= link_to  "<<#{@last_month.year}年#{@last_month.month}月", "#{@last_month.strftime("%m")}" %>
+        <%= link_to "<<#{@last_month.year}年#{@last_month.month}月",  "/timelines/#{@last_month.year}/#{@last_month.strftime("%m")}" %>
       </p>
       <p class="right">
         <% if @next_month < Date.today %>
-        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "timelines" , :action => "index", :date => "#{@next_month}" %>
+        <%#= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "timelines" , :action => "index", :date => "#{@next_month}" %>
+        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>", "/timelines/#{@next_month.strftime("%Y/%m")}" %>
         <% end %>
       </p>
     </td>
@@ -95,11 +98,11 @@
   <tr>
     <td class="overflow border-none" colspan="<%= @users.count + 1%>">
       <p class="left">
-        <%= link_to  "<<#{@last_month.year}年#{@last_month.month}月" , :controller => "timelines" , :action => "index", :date => "#{@last_month}" %>
+        <%= link_to "<<#{@last_month.year}年#{@last_month.month}月", "/timelines/#{@last_month.strftime("%Y/%m")}" %>
       </p>
       <p class="right">
         <% if @next_month < Date.today %>
-        <%= link_to  "#{@next_month.year}年#{@next_month.month}月>>" , :controller => "timelines" , :action => "index", :date => "#{@next_month}" %>
+          <%= link_to "#{@next_month.year}年#{@next_month.month}月>>", "/timelines/#{@next_month.strftime("%Y/%m")}" %>
         <% end %>
       </p>
     </td>

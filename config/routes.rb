@@ -52,4 +52,5 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect ':controller/:action/:id.:format'
   #  map.connect '/', :controller => 'users', :action => 'index'
   map.root :controller => "users", :action => 'index'
+  map.connect ":controller/:year/:month", :controller => "timelines", :action => "index"
 end

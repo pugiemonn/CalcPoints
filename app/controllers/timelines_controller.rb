@@ -6,32 +6,37 @@ class TimelinesController < ApplicationController
   def index
     @timelines = Timeline.all
     @users = User.all
-#    @points = Point.find(:all, :group => :date, :order => :date, :include => :user)
     @points = Point.find(:all, :order => :date, :include => :user)
 
-    if params[:date].nil?
+    if params[:year].nil? && params[:month].nil? 
       date = Date.today
-      date_end = date-1 #当日を表示しないために１日を引いている
     else
-    if params[:date].to_date < Date.today.beginning_of_month.to_date
-
-      date = params[:date].to_date
-      date_end = date.next_month.beginning_of_month.to_date - 1
-    else
-      date = Date.today
-      date_end = date-1 #当日を表示しないために１日を引いている
+      year = params[:year]
+      month = params[:month]
+      date = year + "-" + month + "-01"
     end
+
+    if date.nil? 
+#      date = Date.today
+      date_end = date-1 #当日を表示しないために１日を引いている
+    else
+#      if  params[:date].to_date < Date.today.beginning_of_month.to_date
+      if  date.to_date < Date.today.beginning_of_month.to_date
+        date = date.to_date
+        date_end = date.next_month.beginning_of_month.to_date - 1
+      else
+        date = Date.today
+        date_end = date-1 #当日を表示しないために１日を引いている
+      end
     end
 
     #先月
     @last_month =  date.prev_month.beginning_of_month.to_date 
+    p @last_month
     #次月
     @next_month = @last_month.next_month.next_month 
-#    @next_month = @last_month < date.prev_month.beginning_of_month ? @last_month.next_month.next_month : nil
     #今月
 #    @this_month = @last_month.next_month
-
-    
 
     date_box = Array.new
     wdays_box = Array.new
@@ -53,23 +58,33 @@ class TimelinesController < ApplicationController
     @date_box = date_box
     #@wdays_box = wdays_box
 
-
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @timelines }
     end
+
+#エラーが出た場合のリダイレクト
+  rescue ArgumentError 
+  rescue NoMethodError
+    logger.error("無効なアクセスをしようとしました")
+    flash[:notice] = ""
+    redirect_to :action => "index"
   end
 
   # GET /timelines/1
   # GET /timelines/1.xml
   def show
-    @timeline = Timeline.find(params[:id])
+   # @timeline = Timeline.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @timeline }
-    end
+#    @hoge = Integer.params[:year] + params[:month]
+#    print(@hoge)
+    
+
+#    redirect_to :action => "index"
+#    respond_to do |format|
+#      format.html # show.html.erb
+#      format.xml  { render :xml => @timeline }
+#    end
   end
 
   # GET /timelines/new
@@ -131,4 +146,12 @@ class TimelinesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+private
+
+  def redirect_to_index(msg = nil)
+    flash[:notice] = msg if msg
+    redirect_to :controller => 'spent_points'
+  end
+
 end
